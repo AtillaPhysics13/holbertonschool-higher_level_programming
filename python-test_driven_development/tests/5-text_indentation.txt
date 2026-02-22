@@ -1,0 +1,35 @@
+The ``text_indentation`` function prints text with 2 new lines after '.', '?' and ':'.
+
+Import:
+
+    >>> text_indentation = __import__('5-text_indentation').text_indentation
+
+Type checking:
+
+    >>> text_indentation(123)
+    Traceback (most recent call last):
+    TypeError: text must be a string
+
+Basic behavior:
+
+    >>> text_indentation("Hello. World? Yes: no")
+    Hello.
+    <BLANKLINE>
+    World?
+    <BLANKLINE>
+    Yes:
+    <BLANKLINE>
+    no
+
+No leading spaces on new lines (spaces after separators are skipped):
+
+    >>> text_indentation("A.   B")
+    A.
+    <BLANKLINE>
+    B
+
+Leading spaces in the whole input are ignored for the first printed line:
+
+    >>> text_indentation("   Hi.")
+    Hi.
+    <BLANKLINE>
