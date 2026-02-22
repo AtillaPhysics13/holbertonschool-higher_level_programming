@@ -4,7 +4,7 @@ Import:
 
     >>> matrix_divided = __import__('2-matrix_divided').matrix_divided
 
-Basic example and immutability:
+Basic example and immutability (original matrix must not change):
 
     >>> matrix = [[1, 2, 3], [4, 5, 6]]
     >>> matrix_divided(matrix, 3)
@@ -12,7 +12,7 @@ Basic example and immutability:
     >>> matrix
     [[1, 2, 3], [4, 5, 6]]
 
-Matrix must be a list of lists of integers/floats:
+Matrix must be a matrix (list of lists) of integers/floats:
 
     >>> matrix_divided("not a matrix", 3)
     Traceback (most recent call last):
@@ -30,7 +30,7 @@ Matrix must be a list of lists of integers/floats:
     Traceback (most recent call last):
     TypeError: matrix must be a matrix (list of lists) of integers/floats
 
-Row sizes must match:
+Each row of the matrix must have the same size:
 
     >>> matrix_divided([[1, 2], [3, 4, 5]], 2)
     Traceback (most recent call last):
@@ -45,3 +45,20 @@ div validation:
     >>> matrix_divided([[1, 2], [3, 4]], "2")
     Traceback (most recent call last):
     TypeError: div must be a number
+
+Infinity / NaN behavior (should be accepted as floats):
+
+    >>> matrix_divided([[1, 2], [3, 4]], float('inf'))
+    [[0.0, 0.0], [0.0, 0.0]]
+
+    >>> res = matrix_divided([[1, float('inf')]], 2)
+    >>> res[0][0]
+    0.5
+    >>> res[0][1]
+    inf
+
+    >>> res = matrix_divided([[1, float('nan')]], 2)
+    >>> res[0][0]
+    0.5
+    >>> str(res[0][1])
+    'nan'
